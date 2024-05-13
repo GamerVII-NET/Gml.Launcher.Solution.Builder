@@ -1,0 +1,7 @@
+Package: gamervii-launcher-package
+Version: 1.0
+Architecture: all
+Essential: no
+Priority: optional
+Maintainer: GamerVII launcher
+Description: GamerVII launcher launcher

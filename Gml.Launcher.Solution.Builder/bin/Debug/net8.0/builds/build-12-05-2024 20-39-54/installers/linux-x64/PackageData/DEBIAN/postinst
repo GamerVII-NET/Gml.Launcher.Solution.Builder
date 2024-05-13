@@ -1,0 +1,11 @@
+#!/bin/bash
+chmod +x /usr/bin/Gml.Launcher
+
+desktop_file_path="/usr/share/applications/gamervii-gml.desktop"
+target_file_path="$HOME/Desktop/gamervii-gml.desktop"
+
+# Создаем ссылку на файл .desktop на рабочем столе пользователя
+ln -s $desktop_file_path $target_file_path
+
+# Делаем файл исполняемым
+chmod +x $target_file_path

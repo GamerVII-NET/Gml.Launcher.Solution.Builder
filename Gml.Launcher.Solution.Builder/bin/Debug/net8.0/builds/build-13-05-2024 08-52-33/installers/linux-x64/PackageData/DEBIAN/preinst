@@ -1,0 +1,74 @@
+
+#!/bin/bash
+
+# Проверка установки .NET
+dotnet_version=$(dotnet --version 2>&1 | grep 8.0.104)
+
+# Если ".NET 8.0.104" не установлен
+if [ -z "$dotnet_version" ]; then
+
+    # Скачивает .NET SDK 8
+    echo "Downloading .NET SDK 8..."
+    curl -s -O https://download.visualstudio.microsoft.com/download/pr/fd4a16ac-5322-4308-b6b0-afa1821e63f6/0abd2e63358335f2235d22fd84b32a60/dotnet-sdk-8.0.104-linux-x64.tar.gz
+    
+    # Создается каталог для .NET SDK
+    echo "Creating directory for .NET SDK..."
+    mkdir -p $HOME/dotnet
+    
+    # Распаковывает .NET SDK
+    echo "Extracting .NET SDK..."
+    tar zxf dotnet-sdk-8.0.104-linux-x64.tar.gz -C $HOME/dotnet
+    
+    # Устанавливаются переменные окружения
+    echo "Setting up environment variables..."
+    DOTNET_ROOT=$HOME/dotnet
+    PATH=$PATH:$HOME/dotnet
+    
+    # Переменные окружения делаются постоянными
+    echo "export DOTNET_ROOT=$HOME/dotnet" >> $HOME/.bashrc
+    echo "export PATH=\$PATH:\$HOME/dotnet" >> $HOME/.bashrc
+    echo "Environment variables have been added to $HOME/.bashrc"
+    
+    # Очистка
+    echo "Cleaning up downloaded files..."
+    rm dotnet-sdk-8.0.104-linux-x64.tar.gz
+    
+    # Завершение установки
+    echo ".NET SDK 8 installation is complete!"
+    
+    # Проверка установки
+    dotnet --version
+fi
+
+
+# Проверка установки Java 17
+java_version=$(java -version 2>&1 | grep 'version "17')
+
+# Если "java 17" не установлен
+if [ -z "$java_version" ]; then
+    echo "Java 17 not found. Installing..."
+    
+    # Если файл openjdk-17.0.2_linux-x64_bin.tar.gz не существует, загрузить его
+    if [ ! -f openjdk-17.0.2_linux-x64_bin.tar.gz ]; then
+        curl -s -O https://download.oracle.com/java/17/latest/openjdk-17_linux-x64_bin.tar.gz
+    fi
+    
+    tar xvf openjdk-17.0.2_linux-x64_bin.tar.gz
+    
+    sudo rm -Rf /opt/jdk-17 || { echo "Removing old JDK failed"; exit 1; }
+    sudo mv jdk-17.0.2 /opt/jdk-17 || { echo "Moving JDK failed"; exit 1; }
+    
+    echo 'export JAVA_HOME=/opt/jdk-17' | sudo tee -a /etc/profile
+    echo 'export PATH=$PATH:$JAVA_HOME/bin' | sudo tee -a /etc/profile
+    
+    sudo update-alternatives --install "/usr/bin/java" "java" "/opt/jdk-17/bin/java" 1
+    sudo update-alternatives --set java /opt/jdk-17/bin/java
+    
+    rm openjdk-17.0.2_linux-x64_bin.tar.gz
+
+    java --version
+    
+    echo "Java 17 installed successfully"
+else
+    echo "Java 17 is already installed"
+fi

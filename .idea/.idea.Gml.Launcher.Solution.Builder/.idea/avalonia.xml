@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="Gml.Launcher.Solution.Builder/MainWindow.axaml" value="Gml.Launcher.Solution.Builder/Gml.Launcher.Solution.Builder.csproj" />
+        <entry key="Gml.Launcher.Solution.Builder/Views/MainWindow.axaml" value="Gml.Launcher.Solution.Builder/Gml.Launcher.Solution.Builder.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

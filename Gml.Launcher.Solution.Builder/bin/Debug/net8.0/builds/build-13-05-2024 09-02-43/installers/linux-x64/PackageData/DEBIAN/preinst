@@ -1,0 +1,41 @@
+
+#!/bin/bash
+
+dotnet_version=$(dotnet --version 2>&1 | grep 7.0.407)
+
+# Если ".NET 7.0.407" не установлен
+if [ -z "$dotnet_version" ]; then
+    # Download .NET SDK 8
+    echo "Downloading .NET SDK 8..."
+    curl -O https://download.visualstudio.microsoft.com/download/pr/fd4a16ac-5322-4308-b6b0-afa1821e63f6/0abd2e63358335f2235d22fd84b32a60/dotnet-sdk-8.0.104-linux-x64.tar.gz
+    
+    # Create directory for .NET SDK
+    echo "Creating directory for .NET SDK..."
+    mkdir -p $HOME/dotnet
+    
+    # Extract .NET SDK
+    echo "Extracting .NET SDK..."
+    tar zxf dotnet-sdk-8.0.104-linux-x64.tar.gz -C $HOME/dotnet
+    
+    # Set up environment variables
+    echo "Setting up environment variables..."
+    export DOTNET_ROOT=$HOME/dotnet
+    export PATH=$PATH:$HOME/dotnet
+    
+    # Make environment variables persistent
+    echo "export DOTNET_ROOT=$HOME/dotnet" >> $HOME/.bashrc
+    echo "export PATH=\$PATH:\$HOME/dotnet" >> $HOME/.bashrc
+    echo "Environment variables have been added to $HOME/.bashrc"
+    
+    # Cleanup
+    echo "Cleaning up downloaded files..."
+    rm dotnet-sdk-8.0.104-linux-x64.tar.gz
+    
+    sudo update-alternatives --set dotnet $HOME/dotnet
+
+    # Installation complete
+    echo ".NET SDK 7 installation is complete!"
+    
+    # Verify the installation
+    dotnet --version
+fi

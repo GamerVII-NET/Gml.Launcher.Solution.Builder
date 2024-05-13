@@ -1,0 +1,7 @@
+Package: gml-launcher-package
+Version: 1.0
+Architecture: all
+Essential: no
+Priority: optional
+Maintainer: Gml launcher
+Description: Gml launcher launcher

@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Gml.Launcher.Solution.Builder.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:Gml.Launcher.Solution.Builder.Models"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="340"
+        Width="600" 
+        Height="340"
+        WindowStartupLocation="CenterScreen"
+        x:Class="Gml.Launcher.Solution.Builder.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Gml.Launcher.Solution.Builder">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Border Padding="20">
+        <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
+                <TextBlock Text="Название проекта"/>
+                <TextBox Text="{Binding ProjectName}"/>
+                <TextBlock>
+                    <Run Text="Slug имя:"></Run>
+                    <Run Text="{Binding ProjectNameSlug}"></Run>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Spacing="5">
+                <TextBlock Text="Выберите версии"/>
+                <ItemsControl ItemsSource="{Binding Versions}">
+                    <ItemsControl.DataTemplates>
+                        <DataTemplate x:DataType="models:AllowedVersion">
+                            <CheckBox IsChecked="{Binding IsSelected}"
+                                      Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ItemsControl.DataTemplates>
+                </ItemsControl>
+            </StackPanel>
+            <StackPanel Spacing="5">
+                <TextBlock Text="Выберите папку с проектом лаунчера"/>
+                <Grid ColumnDefinitions="Auto, 10, *">
+                    <Button Command="{Binding OpenFolderCommand}" Content="Выбрать папку"/>
+                    <TextBox Grid.Column="2" Text="{Binding SelectedPath}" IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            
+            <Button Content="Собрать установщики" Command="{Binding CreateInstallersCommand}"/>
+            
+            <TextBlock Text="{Binding MessageText}" Foreground="Tomato"/>
+        </StackPanel>
+        
+    </Border>
+
+</Window>

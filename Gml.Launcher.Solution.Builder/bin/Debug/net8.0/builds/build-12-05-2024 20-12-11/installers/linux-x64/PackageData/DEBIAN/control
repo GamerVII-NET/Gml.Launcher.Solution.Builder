@@ -1,0 +1,7 @@
+Package: ontacraft-package
+Version: 1.0
+Architecture: all
+Essential: no
+Priority: optional
+Maintainer: OntaCraft
+Description: Ontacraft launcher
