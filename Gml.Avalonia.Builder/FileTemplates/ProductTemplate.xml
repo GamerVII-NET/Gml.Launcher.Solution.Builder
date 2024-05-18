@@ -1,0 +1,28 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+    <Package Name="{{ApplicationName}}"
+             Version="{{ApplicationVersion}}"
+             Manufacturer="{{Manufacturer}}"
+             UpgradeCode="{{ApplicationGuid}}">
+
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+        <MediaTemplate EmbedCab="yes"/>
+        <Binary Id="DotNetLoader" SourceFile="Gml.Custom.Action.dll"/>
+
+        <CustomAction Id='DotNetLoaderAction'
+                      BinaryRef='DotNetLoader'
+                      DllEntry='MySimpleAction'
+                      Execute='deferred'
+                      Return='check' />
+
+        <InstallExecuteSequence>
+            <Custom Action="DotNetLoaderAction" Before="InstallFinalize" />
+        </InstallExecuteSequence>
+
+        <Component>
+            <File Source="{{ExecutablePath}}"/>
+        </Component>
+    </Package>
+
+</Wix>

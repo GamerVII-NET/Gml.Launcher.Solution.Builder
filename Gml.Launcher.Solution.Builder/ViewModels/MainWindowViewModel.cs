@@ -11,7 +11,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Gml.Launcher.Solution.Builder.Models;
 using Gml.Launcher.Solution.Builder.Views;
-using Microsoft.CodeAnalysis.CSharp;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 

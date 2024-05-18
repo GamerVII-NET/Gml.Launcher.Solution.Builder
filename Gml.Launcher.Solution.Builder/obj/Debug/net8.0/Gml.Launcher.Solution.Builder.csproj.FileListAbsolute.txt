@@ -276,3 +276,4 @@ D:\Projects\RiderProjects\Gml.Launcher.Solution.Builder\Gml.Launcher.Solution.Bu
 D:\Projects\RiderProjects\Gml.Launcher.Solution.Builder\Gml.Launcher.Solution.Builder\obj\Debug\net8.0\Gml.Laun.65A205E8.Up2Date
 D:\Projects\RiderProjects\Gml.Launcher.Solution.Builder\Gml.Launcher.Solution.Builder\obj\Debug\net8.0\Gml.Launcher.Solution.Builder.genruntimeconfig.cache
 D:\Projects\RiderProjects\Gml.Launcher.Solution.Builder\Gml.Launcher.Solution.Builder\obj\Debug\net8.0\ref\Gml.Launcher.Solution.Builder.dll
+D:\Projects\RiderProjects\Gml.Launcher.Solution.Builder\Gml.Launcher.Solution.Builder\obj\Debug\net8.0\Gml.Launcher.Solution.Builder.sourcelink.json
