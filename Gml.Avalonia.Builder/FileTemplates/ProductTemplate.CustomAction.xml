@@ -1,0 +1,26 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    
+    <Package Name="{{ApplicationName}}" 
+             Version="{{ApplicationVersion}}" 
+             Manufacturer="{{Manufacturer}}" 
+             UpgradeCode="{{ApplicationGuid}}">
+
+        <MediaTemplate EmbedCab="yes"/>
+        <Binary Id="DotNetLoader" SourceFile="DotNetLoader.CustomAction.dll"/>
+
+        <CustomAction Id='DotNetLoader'
+                      BinaryRef='DotNetLoader'
+                      DllEntry='DotnetInstall'
+                      Execute='deferred'
+                      Return='check' />
+
+        <InstallExecuteSequence>
+            <Custom Action="DotNetLoader" Before="InstallFinalize" />
+        </InstallExecuteSequence>
+        
+        <Component>
+            <File Source="{{ExecutablePath}}"/>
+        </Component>
+    </Package>
+    
+</Wix>

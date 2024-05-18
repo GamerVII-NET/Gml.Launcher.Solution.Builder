@@ -1,0 +1,42 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package Name="{{ApplicationName}}"
+             Version="{{ApplicationVersion}}"
+             Manufacturer="{{Manufacturer}}"
+             UpgradeCode="{{ApplicationGuid}}">
+
+        <MediaTemplate EmbedCab="yes"/>
+
+        <Component>
+            <File Source="{{ExecutablePath}}"/>
+        </Component>
+
+        <Property Id="WINGETPATH">
+            <RegistrySearch Id='WingetRegistry'
+                            Type='raw'
+                            Root='HKLM'
+                            Key='SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\winget.exe'/>
+        </Property>
+
+        <!-- Install Microsoft.DotNet.DesktopRuntime.8.0 -->
+        <CustomAction Id="Install_DotNetDesktopRuntime"
+                      Directory="TARGETDIR"
+                      ExeCommand='"[WINGETPATH]" install Microsoft.DotNet.DesktopRuntime.8'
+                      Execute="deferred"
+                      Return="ignore"
+                      Impersonate="no" />
+
+        <!-- Install Microsoft.DotNet.Runtime.8.0 -->
+        <CustomAction Id="Install_DotNetRuntime"
+                      Directory="TARGETDIR"
+                      ExeCommand='"[WINGETPATH]" install Microsoft.DotNet.Runtime.8'
+                      Execute="deferred"
+                      Return="ignore"
+                      Impersonate="no"/>
+
+        <!-- Schedule the custom action -->
+        <InstallExecuteSequence>
+            <Custom Action="Install_DotNetDesktopRuntime" After="LaunchConditions"/>
+            <Custom Action="Install_DotNetRuntime" After="Install_DotNetDesktopRuntime"/>
+        </InstallExecuteSequence>
+    </Package>
+</Wix>
